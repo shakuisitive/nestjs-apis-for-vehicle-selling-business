@@ -1,3 +1,4 @@
+import { CurrentUser } from './decorators/current-user.decorator';
 import { AuthService } from './auth.service';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
@@ -26,9 +27,15 @@ export class UsersController {
     private readonly authService: AuthService,
   ) {}
 
+  // @Get('/whoami')
+  // whoAmI(@Session() session: any) {
+  //   return this.userService.findOne(session.userId);
+  // }
+
   @Get('/whoami')
-  whoAmI(@Session() session: any) {
-    return this.userService.findOne(session.userId);
+  whoAmI(@CurrentUser() user: string) {
+    console.log(user);
+    return user;
   }
 
   @Post('/signup')
